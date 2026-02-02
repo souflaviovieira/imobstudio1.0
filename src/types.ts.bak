@@ -8,16 +8,16 @@ export interface ImageFile {
 }
 
 export interface EditSettings {
-  optimized: boolean;
-  aligned: boolean;
-  sharpness: number;
+  optimized: boolean; 
+  aligned: boolean;   
+  sharpness: number;  
   cropRatio: 'original' | '5:4' | '4:5' | '9:16' | '1:1' | '16:9';
   watermark: WatermarkSettings;
   badges: BadgeSettings[];
-  naming: RenameSettings;
+  naming: RenameSettings; 
 }
 
-export type BrandingPosition =
+export type BrandingPosition = 
   | 'top-left' | 'top-center' | 'top-right'
   | 'middle-left' | 'center' | 'middle-right'
   | 'bottom-left' | 'bottom-center' | 'bottom-right';
@@ -25,7 +25,7 @@ export type BrandingPosition =
 export interface WatermarkSettings {
   enabled: boolean;
   text: string;
-  logo?: string;
+  logo?: string; 
   scale: number;
   opacity: number;
   position: BrandingPosition;
@@ -34,9 +34,9 @@ export interface WatermarkSettings {
 }
 
 export interface BadgeSettings {
-  id: string;
+  id: string; 
   enabled: boolean;
-  image: string;
+  image: string; 
   scale: number;
   opacity: number;
   position: BrandingPosition;
@@ -48,17 +48,6 @@ export interface RenameSettings {
   format: string;
   position: 'before' | 'after';
   startNumber: number;
-}
-
-export type PortalType = 'OLX' | 'ZAP' | 'VIVAREAL' | 'CUSTOM';
-
-export interface PortalPreset {
-  id: PortalType;
-  name: string;
-  width: number;
-  height?: number; // Optional if auto-calculated
-  maxSizeBytes: number; // Max file size in bytes
-  watermarkAllowed: boolean;
 }
 
 export enum Tab {

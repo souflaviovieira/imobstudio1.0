@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Camera, Wand2, LayoutGrid, CheckCircle2, ArrowRight, Zap, Image as ImageIcon, Stamp } from 'lucide-react';
 
+import ComparisonSliderLanding from '../components/ComparisonSliderLanding';
+
 const LandingPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#0E1117] text-white selection:bg-[#00FFAA] selection:text-[#0E1117] font-inter">
@@ -25,32 +27,51 @@ const LandingPage: React.FC = () => {
 
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[#00FFAA]/20 blur-[120px] rounded-full pointer-events-none opacity-30" />
+                {/* Background Gradients */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[#00FFAA]/10 blur-[120px] rounded-full pointer-events-none opacity-30" />
 
-                <div className="max-w-5xl mx-auto text-center relative z-10">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#00FFAA] text-xs font-bold uppercase tracking-widest mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                        <Zap size={12} />
-                        <span>IA Potencializada v2.0</span>
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+                    <div className="text-center lg:text-left">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#00FFAA] text-xs font-bold uppercase tracking-widest mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                            <Zap size={12} />
+                            <span>IA Potencializada v2.0</span>
+                        </div>
+
+                        <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-8 leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+                            Fotos Imobiliárias <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFAA] to-[#00E6FF]">Perfeitas em Segundos.</span>
+                        </h1>
+
+                        <p className="text-lg text-slate-400 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+                            Padronize, edite e adicione sua marca em lotes de fotos instantaneamente.
+                            A ferramenta definitiva para corretores e imobiliárias modernas.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
+                            <Link to="/login" className="w-full sm:w-auto bg-[#00FFAA] hover:bg-[#00e699] text-[#0E1117] px-8 py-4 rounded-xl font-bold text-lg transition-all active:scale-95 flex items-center justify-center gap-2 group">
+                                Acessar Studio
+                                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                            <a href="#features" className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-lg text-white border border-white/10 hover:bg-white/5 transition-all flex items-center justify-center gap-2">
+                                Ver Recursos
+                            </a>
+                        </div>
                     </div>
 
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-8 leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
-                        Fotos Imobiliárias <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FFAA] to-[#00E6FF]">Perfeitas em Segundos.</span>
-                    </h1>
-
-                    <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-                        Padronize, edite e adicione sua marca em lotes de fotos instantaneamente.
-                        A ferramenta definitiva para corretores e imobiliárias modernas.
-                    </p>
-
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-                        <Link to="/login" className="w-full md:w-auto bg-[#00FFAA] hover:bg-[#00e699] text-[#0E1117] px-8 py-4 rounded-xl font-bold text-lg transition-all active:scale-95 flex items-center justify-center gap-2 group">
-                            Acessar Studio
-                            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <a href="#features" className="w-full md:w-auto px-8 py-4 rounded-xl font-bold text-lg text-white border border-white/10 hover:bg-white/5 transition-all flex items-center justify-center gap-2">
-                            Ver Recursos
-                        </a>
+                    {/* Interactive Demo */}
+                    <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-500">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[#00FFAA] to-[#00E6FF] rounded-3xl blur opacity-20" />
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+                            <ComparisonSliderLanding
+                                before="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200&auto=format&fit=crop"
+                                after="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200&auto=format&fit=crop"
+                            />
+                            <div className="absolute bottom-4 left-0 right-0 text-center pointer-events-none">
+                                <span className="bg-black/60 backdrop-blur text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-white/10">
+                                    Arraste para Ver a Mágica
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

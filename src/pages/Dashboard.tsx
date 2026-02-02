@@ -37,11 +37,14 @@ import {
   ArrowDown,
   ArrowDownRight,
   Square,
-  Check
+  Check,
+  Building2,
+  Globe
 } from 'lucide-react';
 import JSZip from 'jszip';
 import { ImageFile, Tab, EditSettings, WatermarkSettings, BadgeSettings, RenameSettings, BrandingPosition } from '../types';
 import { processImage } from '../services/imageProcessor';
+import { PORTAL_PRESETS } from '../services/portalPresets';
 import ComparisonSlider from '../components/ComparisonSlider';
 
 const DEFAULT_SETTINGS: EditSettings = {
@@ -82,6 +85,7 @@ const Dashboard: React.FC = () => {
   const [isBrandingModalOpen, setIsBrandingModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'watermark' | 'badge'>('watermark');
   const [activeBadgeId, setActiveBadgeId] = useState<string | null>(null);
+  const [selectedPortal, setSelectedPortal] = useState<string | null>(null);
 
   const [croppedOriginal, setCroppedOriginal] = useState<string | null>(null);
 
@@ -255,7 +259,12 @@ const Dashboard: React.FC = () => {
 
       await new Promise(resolve => {
         imgEl.onload = async () => {
-          const dataUrl = await processImage(imgEl, img.settings, 3840);
+          // Determine target width from portal preset or default to 4K
+          const targetWidth = selectedPortal
+            ? PORTAL_PRESETS.find(p => p.id === selectedPortal)?.width || 3840
+            : 3840;
+
+          const dataUrl = await processImage(imgEl, img.settings, targetWidth);
           const base64Data = dataUrl.split(',')[1];
 
           const { format, position, startNumber } = img.settings.naming;
@@ -612,6 +621,37 @@ const Dashboard: React.FC = () => {
                   <button onClick={() => setGridDensity('normal')} className={`p-2 rounded-lg ${gridDensity === 'normal' ? 'bg-[#00FFAA] text-[#0E1117]' : 'text-slate-500'}`}><Grid2X2 size={18} /></button>
                   <button onClick={() => setGridDensity('compact')} className={`p-2 rounded-lg ${gridDensity === 'compact' ? 'bg-[#00FFAA] text-[#0E1117]' : 'text-slate-500'}`}><Grid3X3 size={18} /></button>
                 </div>
+              </div>
+            </div>
+
+            {/* Template/Portal Selection */}
+            <div className="mb-8 p-6 bg-[#161B22] border border-white/5 rounded-2xl animate-in slide-in-from-top-4 duration-500">
+              <div className="flex items-center gap-2 mb-4">
+                <Building2 size={18} className="text-[#00FFAA]" />
+                <h3 className="text-sm font-bold uppercase tracking-widest text-slate-300">Otimizar para Portal</h3>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={() => setSelectedPortal(null)}
+                  className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all ${selectedPortal === null
+                      ? 'bg-[#00FFAA] text-black border-[#00FFAA] shadow-[0_0_15px_rgba(0,255,170,0.3)]'
+                      : 'bg-transparent text-slate-500 border-white/10 hover:border-white/20 hover:text-white'
+                    }`}
+                >
+                  <Globe size={16} /> Original (4K)
+                </button>
+                {PORTAL_PRESETS.map(portal => (
+                  <button
+                    key={portal.id}
+                    onClick={() => setSelectedPortal(portal.id)}
+                    className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all ${selectedPortal === portal.id
+                        ? 'bg-[#00FFAA] text-black border-[#00FFAA] shadow-[0_0_15px_rgba(0,255,170,0.3)]'
+                        : 'bg-transparent text-slate-500 border-white/10 hover:border-white/20 hover:text-white'
+                      }`}
+                  >
+                    {portal.name}
+                  </button>
+                ))}
               </div>
             </div>
 
