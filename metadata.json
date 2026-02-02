@@ -1,0 +1,7 @@
+{
+  "name": "ImobiEdit Pro v2.0",
+  "description": "A luxury, mobile-first real estate photo editing suite featuring Auto-HDR enhancement, perspective correction, branding, and 4K batch export.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
